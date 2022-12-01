@@ -68,7 +68,10 @@ void *icsrealloc(void *dst, size_t size) {
 }
 
 int pcmp(const primitive *a, const primitive *b) {
-    for (int cnt = 0 ; plen(a) + 1 >= cnt ; cnt++) {
+    if (plen(a) != plen(b)) {
+        return 1;
+    }
+    for (int cnt = 0 ; cnt <= plen(a) + 1 ; cnt++) {
         if (a[cnt] != b[cnt]) {
             return 1;
         }
@@ -238,9 +241,6 @@ size_t icslen(ics_t s) {
 }
 
 int icscmp(ics_t a, ics_t b) {
-    if (a.len != b.len) {
-        return 1;
-    }
     return pcmp(a.buf, b.buf);
 }
 
